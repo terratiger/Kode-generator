@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Generator Kode Identitas</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 10px; }
+  label { display: block; margin-top: 10px; }
+  input, select { width: 100%; padding: 6px; margin-top: 4px; }
+  button { margin-top: 20px; padding: 10px; width: 100%; font-size: 16px; }
+  #hasil { margin-top: 20px; padding: 10px; background: #f0f0f0; border: 1px solid #ccc; word-break: break-word; }
+</style>
+</head>
+<body>
+
+<h2>Generator Kode Identitas</h2>
+
+<form id="kodeForm">
+  <label>Organisasi (singkatan): <input type="text" id="organisasi" value="gt" required /></label>
+  <label>Fasilitas (nomor): <input type="number" id="fasilitas" value="10" min="0" required /></label>
+  <label>Nama Fasilitas: <input type="text" id="namaFasilitas" value="Indi" required /></label>
+  <label>Project (nomor): <input type="number" id="proyek" value="1" min="0" required /></label>
+  <label>Percobaan (nomor): <input type="number" id="percobaan" value="1" min="0" required /></label>
+  <label>Nomor Subjek: <input type="number" id="nomor" value="0" min="0" required /></label>
+  <label>Kelamin (0=laki-laki, 1=perempuan): <input type="number" id="kelamin" value="0" min="0" max="1" required /></label>
+  <label>Nama Subjek: <input type="text" id="namaSubjek" value="Wild" required /></label>
+  <label>Status: <input type="text" id="status" value="King" required /></label>
+  <label>Kawasan: <input type="text" id="kawasan" value="Indi" required /></label>
+  <label>Kode Sekolah (singkatan): <input type="text" id="skKode" value="ak" required /></label>
+  <label>Nama Sekolah (singkatan): <input type="text" id="skNamaKode" value="s" required /></label>
+  <label>Cabang Sekolah: <input type="text" id="skCabang" value="lodonia" required /></label>
+  <label>ID Keluarga: <input type="text" id="keluargaId" value="00981" required /></label>
+  <label>Status Hidup (0=hidup, 1=mati): <input type="number" id="statusHidup" value="0" min="0" max="1" required /></label>
+  <label>Status Kedua (-1=hilang): <input type="number" id="statusKedua" value="-1" required /></label>
+  <button type="button" onclick="generateKode()">Generate Kode</button>
+</form>
+
+<div id="hasil"></div>
+
+<script>
+function generateKode() {
+  const org = document.getElementById('organisasi').value.toLowerCase();
+  const fasilitas = document.getElementById('fasilitas').value;
+  const namaFasilitas = document.getElementById('namaFasilitas').value.toLowerCase();
+  const proyek = document.getElementById('proyek').value;
+  const percobaan = document.getElementById('percobaan').value;
+  const nomor = document.getElementById('nomor').value;
+  const kelamin = document.getElementById('kelamin').value;
+  const namaSubjek = document.getElementById('namaSubjek').value.toLowerCase();
+  const status = document.getElementById('status').value.toLowerCase();
+  const kawasan = document.getElementById('kawasan').value.toLowerCase();
+  const skKode = document.getElementById('skKode').value.toLowerCase();
+  const skNamaKode = document.getElementById('skNamaKode').value.toLowerCase();
+  const skCabang = document.getElementById('skCabang').value.toLowerCase();
+  const keluargaId = document.getElementById('keluargaId').value;
+  const statusHidup = document.getElementById('statusHidup').value;
+  const statusKedua = document.getElementById('statusKedua').value;
+
+  let kode = "";
+  kode += "or" + org;
+  kode += "F" + fasilitas;
+  kode += "nf" + namaFasilitas;
+  kode += "pr" + proyek;
+  kode += "p" + percobaan;
+  kode += "n" + nomor;
+  kode += "k" + kelamin;
+  kode += namaSubjek;
+  kode += "s" + status;
+  kode += "A(";
+  kode += "kw" + kawasan;
+  kode += "sk" + skKode + skNamaKode + skCabang;
+  kode += "kd" + keluargaId;
+  kode += "st" + statusHidup;
+  kode += "st1" + statusKedua + ")";
+  
+  document.getElementById('hasil').textContent = kode;
+}
+</script>
+
+</body>
+</html>
